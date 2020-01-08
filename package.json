@@ -1,0 +1,27 @@
+{
+  "name": "matic-blockchainassignment1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amitroy-git/MATIC-BlockchainAssignment1.git"
+  },
+  "keywords": [
+    "Blockchain",
+    "Ethereum",
+    "MongoDB"
+  ],
+  "author": "Amit Roy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amitroy-git/MATIC-BlockchainAssignment1/issues"
+  },
+  "homepage": "https://github.com/amitroy-git/MATIC-BlockchainAssignment1#readme",
+  "dependencies": {
+    "mongodb": "^3.4.1"
+  }
+}
