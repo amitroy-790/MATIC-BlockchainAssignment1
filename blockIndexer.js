@@ -1,11 +1,23 @@
 const Web3 = require("web3");
-const {addBlock} = require("./services/dbService");
-const rinkebyAPI = 'https://kovan.infura.io/v3/5e66f831443940ed88e9adca82578c2b';
+const MongoClient = require('mongodb').MongoClient;
 
-const web3 = new Web3(rinkebyAPI);
+const {kovanrpc,dburl,blockcount,dbname,dbcollection} = require("./param/config");
 
-web3.eth.getBlockNumber().then((result,err)=>{
-    for(i=result-3;i<=result;i++){
-        web3.eth.getBlock(i).then(addBlock);
+const web3 = new Web3(kovanrpc);
+
+async function addblock() {
+    console.log('[@Client] triggering the service');
+    var latest = await web3.eth.getBlockNumber();
+    console.log(latest);
+    var db = await MongoClient.connect(dburl);
+    var dbo = db.db(dbname);
+    for(i=latest-blockcount;i<=latest;i++){
+        var blockobj = await web3.eth.getBlock(i);
+        dbo.collection(dbcollection).insertOne(blockobj, function(err, res) {
+            if (err) throw err;
+            });
     }
-})
+    db.close();
+}
+
+addblock();
