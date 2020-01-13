@@ -1,15 +1,22 @@
 var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/maticdb";
+const {dburl,dbname,dbcollection} = require("../param/config");
 
-function addBlock(blockobj) {
-    MongoClient.connect(url, function(err, db) {
-        if (err) throw err;
-        var dbo = db.db("maticdb");
-        dbo.collection("blocks").insertOne(blockobj, function(err, res) {
-        if (err) throw err;
-        db.close();
+async function getTxData(address) {
+    var db = await MongoClient.connect(dburl);
+    var dbo = db.db(dbname);
+    var p = new Promise(function(resolveFn, rejectFn){
+        dbo.collection(dbcollection).find({from: address}).toArray(function(err, result) {
+            if (err) {
+                return rejectFn(err);
+            }
+            var data = JSON.parse(result);
+            return resolveFn(data);
         });
+        
     });
-}
+    db.close();
+    return p;
+};
 
-module.exports = { addBlock};
+
+module.exports = { getTxData};

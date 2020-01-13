@@ -1,18 +1,14 @@
 var http = require('http'),
     url = require('url'),
-    querystring = require('querystring');
+    reqHandler = require('./services/reqHandler'),
+    notFoundHandler = require('./services/notFoundHandler'),
+    app = require('./app');
 
-var server = http.createServer(function handler(req, res) {
-    var urlObj = url.parse(req.url),
-        queryData = querystring.parse(urlObj.query);
-    if (urlObj.pathname !== '/getTransasctions' || queryData == null){
-        res.statusCode = 404;
-        res.end();
-        return;
-    }
-    res.write('test');
-    res.end();
-});
+
+app.use(reqHandler);
+app.use(notFoundHandler);
+
+var server = http.createServer(app);
 
 server.listen(9090);
 server.on('listening', function(){
