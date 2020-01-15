@@ -31,13 +31,11 @@ async function addTransactions() {
                 dbo.collection(dbcollection).insertMany(txns, function(err, res) {
                     if (err) 
                     {
-                        //db error log writter
+                        console.log(err);
                     }
                 });
             }
         }
-        console.log(i);
-        
     }
     db.close();
 }

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "data-load" : "node blockIndexer.js"
+    "data-load": "node blockIndexer.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/amitroy-git/MATIC-BlockchainAssignment1#readme",
   "dependencies": {
-    "mongodb": "^3.4.1"
+    "mongodb": "^3.4.1",
+    "web3": "^1.2.4"
   }
 }

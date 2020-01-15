@@ -3,5 +3,5 @@ module.exports = {
     dburl: 'mongodb://localhost:27017/',
     dbname: 'maticdb',
     dbcollection: 'transactions',
-    blockcount: '200'
+    blockcount: '10000'
   }

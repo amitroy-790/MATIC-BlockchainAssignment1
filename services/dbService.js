@@ -1,21 +1,21 @@
 var MongoClient = require('mongodb').MongoClient;
 const {dburl,dbname,dbcollection} = require("../param/config");
 
-async function getTxData(address) {
+async function getTxData(address, res, next) {
     var db = await MongoClient.connect(dburl);
     var dbo = db.db(dbname);
-    var p = new Promise(function(resolveFn, rejectFn){
-        dbo.collection(dbcollection).find({from: address}).toArray(function(err, result) {
+    dbo.collection(dbcollection).find({from: address}).toArray(function(err, result) {
             if (err) {
-                return rejectFn(err);
+                console.log(err);
             }
-            var data = JSON.parse(result);
-            return resolveFn(data);
+            db.close();
+            //console.log(result)
+            if (result.length !=0) {
+                res.write(JSON.stringify(result));
+                res.end();
+            }
+            next();        
         });
-        
-    });
-    db.close();
-    return p;
 };
 
 
